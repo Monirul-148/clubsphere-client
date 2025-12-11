@@ -83,7 +83,7 @@ const Home = () => {
       </section>
 
       {/* ---------------- HOW IT WORKS ---------------- */}
-      <section className="py-16 bg-base-200 roun">
+      <section className="py-16 bg-base-200 rounded-3xl">
         <h2 className="text-3xl font-semibold text-center mb-10">
           How ClubSphere Works
         </h2>
