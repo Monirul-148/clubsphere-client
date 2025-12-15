@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../api/axiosSecure"; // যদি public দেখাতে চাও
+import axios from "../../api/axiosSecure"; 
 import EventCard from "../../components/Logo/cards/EventCard";
 
 const Events = () => {

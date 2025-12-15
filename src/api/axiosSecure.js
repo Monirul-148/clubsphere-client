@@ -2,7 +2,7 @@ import axios from "axios";
 import { getAuth } from "firebase/auth";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000", // server port check
+  baseURL: "http://localhost:5000",
 });
 
 axiosSecure.interceptors.request.use(async (config) => {
@@ -11,7 +11,7 @@ axiosSecure.interceptors.request.use(async (config) => {
 
   if (user) {
     const token = await user.getIdToken();
-    config.headers.authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
   return config;
