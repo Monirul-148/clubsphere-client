@@ -1,33 +1,29 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
 const Home = () => {
 
-  // ---------------- FETCH FEATURED CLUBS ----------------
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["featuredClubs"],
-    queryFn: async () => {
-      const response = await fetch('http://localhost:5000/clubs?limit=6');
-      const result = await response.json();
-      // নিশ্চিত করো data array আকারে আসে
-      return result.data || [];
-    }
-  });
-
-  const clubs = Array.isArray(data) ? data : [];
+  // ---------------- MOCK FEATURED CLUBS ----------------
+  const clubs = [
+    { _id: "1", name: "Photography Club", description: "Capture your moments", membersCount: 25 },
+    { _id: "2", name: "Hiking Club", description: "Explore mountains", membersCount: 40 },
+    { _id: "3", name: "Book Club", description: "Read & discuss books", membersCount: 15 },
+    { _id: "4", name: "Tech Club", description: "Learn coding & gadgets", membersCount: 30 },
+    { _id: "5", name: "Cooking Club", description: "Master the art of cooking", membersCount: 20 },
+    { _id: "6", name: "Art Club", description: "Express through colors", membersCount: 18 },
+  ];
 
   return (
     <div className="space-y-24">
 
       {/* ---------------- HERO SECTION ---------------- */}
-      <section className="text-center py-20">
+      <section className="text-center py-20 bg-base-200 rounded-2xl">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent"
+          className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-800 to-pink-500 bg-clip-text text-transparent"
         >
           Welcome to ClubSphere
         </motion.h1>
@@ -54,21 +50,12 @@ const Home = () => {
 
       {/* ---------------- FEATURED CLUBS ---------------- */}
       <section className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-semibold mb-6">
-          Featured Clubs
-        </h2>
-
-        {isLoading && <p>Loading clubs...</p>}
-        {isError && <p className="text-red-500">Error: {error.message}</p>}
-
-        {!isLoading && !isError && clubs.length === 0 && (
-          <p>No clubs found.</p>
-        )}
+        <h2 className="text-3xl font-semibold mb-6">Featured Clubs</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {clubs.map((club, index) => (
             <motion.div
-              key={club._id || index}
+              key={club._id}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
@@ -77,7 +64,7 @@ const Home = () => {
               <h3 className="text-xl font-bold">{club.name}</h3>
               <p className="text-gray-500">{club.description}</p>
               <div className="mt-3 text-sm text-gray-600">
-                Members: {club.membersCount || 0}
+                Members: {club.membersCount}
               </div>
               <Link className="btn btn-sm btn-primary mt-4" to={`/clubs/${club._id}`}>
                 View Club
