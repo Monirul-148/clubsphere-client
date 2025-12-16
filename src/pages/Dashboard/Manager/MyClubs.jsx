@@ -1,4 +1,4 @@
-// src/pages/Dashboard/Manager/MyClubs.jsx
+
 import React, { useEffect, useState } from "react";
 import  useAuth  from "../../../hooks/useAuth";
 
