@@ -5,14 +5,18 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
 
-  //  Fetch Featured Clubs
-  const { data: clubs = [], isLoading } = useQuery({
+  // ---------------- FETCH FEATURED CLUBS ----------------
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["featuredClubs"],
     queryFn: async () => {
-      const res = await fetch("https://api.example.com/clubs?limit=6");
-      return res.json();
+      const response = await fetch('http://localhost:5000/clubs?limit=6');
+      const result = await response.json();
+      // নিশ্চিত করো data array আকারে আসে
+      return result.data || [];
     }
   });
+
+  const clubs = Array.isArray(data) ? data : [];
 
   return (
     <div className="space-y-24">
@@ -43,8 +47,8 @@ const Home = () => {
           transition={{ delay: 0.5 }}
           className="mt-8 flex justify-center gap-4"
         >
-          <Link className="btn btn-primary">Join a Club</Link>
-          <Link className="btn btn-secondary">Create a Club</Link>
+          <Link to="/clubs" className="btn btn-primary">Join a Club</Link>
+          <Link to="/create-club" className="btn btn-secondary">Create a Club</Link>
         </motion.div>
       </section>
 
@@ -54,32 +58,33 @@ const Home = () => {
           Featured Clubs
         </h2>
 
-        {isLoading ? (
-          <p>Loading clubs...</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {clubs.map((club, index) => (
-              <motion.div
-                key={club._id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                className="p-5 border rounded-xl shadow hover:shadow-lg transition"
-              >
-                <h3 className="text-xl font-bold">{club.name}</h3>
-                <p className="text-gray-500">{club.description}</p>
+        {isLoading && <p>Loading clubs...</p>}
+        {isError && <p className="text-red-500">Error: {error.message}</p>}
 
-                <div className="mt-3 text-sm text-gray-600">
-                  Members: {club.membersCount}
-                </div>
-
-                <Link className="btn btn-sm btn-primary mt-4" to={`/clubs/${club._id}`}>
-                  View Club
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+        {!isLoading && !isError && clubs.length === 0 && (
+          <p>No clubs found.</p>
         )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {clubs.map((club, index) => (
+            <motion.div
+              key={club._id || index}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 }}
+              className="p-5 border rounded-xl shadow hover:shadow-lg transition"
+            >
+              <h3 className="text-xl font-bold">{club.name}</h3>
+              <p className="text-gray-500">{club.description}</p>
+              <div className="mt-3 text-sm text-gray-600">
+                Members: {club.membersCount || 0}
+              </div>
+              <Link className="btn btn-sm btn-primary mt-4" to={`/clubs/${club._id}`}>
+                View Club
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* ---------------- HOW IT WORKS ---------------- */}
@@ -131,4 +136,3 @@ const Home = () => {
 };
 
 export default Home;
-
