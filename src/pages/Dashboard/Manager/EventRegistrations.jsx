@@ -1,57 +1,46 @@
-import React, { useEffect, useState } from "react";
-import axiosSecure from "../../../api/axiosSecure";
-import Loading from "../../Shared/Loading/Loading";
+// // src/pages/Dashboard/Manager/EventRegistrations.jsx
+// import React, { useEffect, useState } from "react";
+// import  useAuth  from "../../../hooks/useAuth";
 
-const EventRegistrations = () => {
-  const [registrations, setRegistrations] = useState([]);
-  const [loading, setLoading] = useState(true);
+// const EventRegistrations = () => {
+//   const [registrations, setRegistrations] = useState([]);
+//   const { user, getToken } = useAuth();
 
-  useEffect(() => {
-    const fetchRegistrations = async () => {
-      try {
-        const res = await axiosSecure.get("/event-registrations/my");
-        setRegistrations(res.data);
-      } catch (error) {
-        console.error("Failed to fetch registrations:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+//   useEffect(() => {
+//     const fetchRegistrations = async () => {
+//       try {
+//         const token = await getToken();
+//         const res = await fetch(
+//           "http://localhost:5000/manager/event-registrations",
+//           {
+//             headers: { Authorization: `Bearer ${token}` },
+//           }
+//         );
+//         const data = await res.json();
+//         setRegistrations(data);
+//       } catch (err) {
+//         console.error(err);
+//       }
+//     };
+//     fetchRegistrations();
+//   }, [user]);
 
-    fetchRegistrations();
-  }, []);
+//   return (
+//     <div className="p-6">
+//       <h2 className="text-3xl font-bold mb-6">Event Registrations</h2>
+//       <div className="grid md:grid-cols-2 gap-6">
+//         {registrations.map((reg) => (
+//           <div key={reg._id} className="p-4 border rounded-xl shadow">
+//             <h3 className="text-xl font-semibold">{reg.eventName}</h3>
+//             <p>User: {reg.userEmail}</p>
+//             <p>Status: {reg.status}</p>
+//             <p>Registered At: {new Date(reg.registeredAt).toLocaleString()}</p>
+//           </div>
+//         ))}
+//         {registrations.length === 0 && <p>No registrations yet.</p>}
+//       </div>
+//     </div>
+//   );
+// };
 
-  if (loading) return <Loading />;
-
-  return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">My Event Registrations</h2>
-      {registrations.length === 0 ? (
-        <p>You have not registered for any events yet.</p>
-      ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {registrations.map((reg) => (
-            <div
-              key={reg._id}
-              className="border p-4 rounded-lg shadow hover:shadow-lg transition"
-            >
-              <h3 className="text-xl font-semibold mb-2">{reg.eventName}</h3>
-              <p>
-                <strong>Status:</strong> {reg.status}
-              </p>
-              <p>
-                <strong>Registered At:</strong>{" "}
-                {new Date(reg.registeredAt).toLocaleString()}
-              </p>
-              <p>
-                <strong>User Email:</strong> {reg.userEmail}
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default EventRegistrations;
+// export default EventRegistrations;

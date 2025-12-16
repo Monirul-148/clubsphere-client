@@ -44,7 +44,7 @@ const Home = () => {
           className="mt-8 flex justify-center gap-4"
         >
           <Link to="/clubs" className="btn btn-primary">Join a Club</Link>
-          <Link to="/create-club" className="btn btn-secondary">Create a Club</Link>
+          <Link to="/dashboard/create-club" className="btn btn-secondary">Create a Club</Link>
         </motion.div>
       </section>
 

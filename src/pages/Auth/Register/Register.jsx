@@ -9,7 +9,7 @@ import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Register = () => {
-  const { registerUser } = useAuth(); // googleLogin removed because SocialLogin handles it
+  const { registerUser } = useAuth(); 
 
   const navigate = useNavigate();
   const location = useLocation();

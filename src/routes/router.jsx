@@ -1,13 +1,22 @@
-import { createBrowserRouter, Route } from "react-router-dom";
+// src/routes/router.jsx
+import { createBrowserRouter } from "react-router-dom";
 import RootLayouts from "../layouts/RootLayouts";
+import AuthLayout from "../layouts/AuthLayout";
+import DashboardLayout from "../layouts/DashboardLayout";
+
 import Home from "../pages/Home/Home/Home";
 import Clubs from "../pages/Clubs/Clubs";
+import ClubDetails from "../pages/Clubs/ClubDetails";
 import Events from "../pages/Events/Events";
-import EventRegistrations from "../pages/Dashboard/Manager/EventRegistrations";
-import AuthLayout from "../layouts/AuthLayout";
+
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
-import ClubDetails from "../pages/Clubs/ClubDetails"
+
+// Dashboard - Manager
+import ManagerHome from "../pages/Dashboard/Manager/ManagerHome";
+import CreateClub from "../pages/Dashboard/Manager/CreateClub";
+import MyClubs from "../pages/Dashboard/Manager/MyClubs";
+import EventRegistrations from "../pages/Dashboard/Manager/EventRegistrations";
 
 export const router = createBrowserRouter([
   {
@@ -16,9 +25,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "clubs", element: <Clubs /> },
+      { path: "clubs/:id", element: <ClubDetails /> },
       { path: "events", element: <Events /> },
-      { path: "events-registrations", element: <EventRegistrations /> },
-      {path:"clubs/:id", element: <ClubDetails />},
     ],
   },
   {
@@ -29,7 +37,19 @@ export const router = createBrowserRouter([
       { path: "register", element: <Register /> },
     ],
   },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
+      { index: true, element: <ManagerHome /> },
+      { path: "create-club", element: <CreateClub /> },
+      { path: "my-clubs", element: <MyClubs /> },
+      { path: "event-registrations", element: <EventRegistrations /> },
+    ],
+  },
+  // Catch-all 404 route
+  {
+    path: "*",
+    element: <h2 className="text-center mt-10 text-2xl">404 - Page Not Found</h2>,
+  },
 ]);
-
-
-
