@@ -79,7 +79,8 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Hamburger */}
+        
+        
           <div className="md:hidden ml-auto">
             <button onClick={() => setMenuOpen(!menuOpen)}>
               <svg
