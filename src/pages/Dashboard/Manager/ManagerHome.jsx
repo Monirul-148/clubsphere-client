@@ -1,6 +1,6 @@
 // src/pages/Dashboard/Manager/ManagerHome.jsx
 import React, { useEffect, useState } from "react";
-import  useAuth  from "../../../hooks/useAuth";
+import   { useAuth }   from "../../../hooks/useAuth";
 
 const ManagerHome = () => {
   const [stats, setStats] = useState({ totalClubs: 0, totalEvents: 0 });

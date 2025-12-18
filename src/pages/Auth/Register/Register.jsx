@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import useAuth from "../../../hooks/useAuth";
+import  { useAuth }  from "../../../hooks/useAuth";
 import { updateProfile } from "firebase/auth";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import Swal from "sweetalert2";

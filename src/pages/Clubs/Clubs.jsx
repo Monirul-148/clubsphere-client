@@ -1,5 +1,6 @@
 import React from "react";
 import { useClubs } from "../../hooks/useClubs.js";
+import { Link } from "react-router";
 
 const Clubs = () => {
   const { data: clubs = [], isLoading, error } = useClubs();
@@ -18,6 +19,9 @@ const Clubs = () => {
           <p className="mt-1 font-medium">Category: {club.category}</p>
           <p className="mt-1 font-medium">Location: {club.location}</p>
           <p className="mt-1 font-semibold">Membership Fee: {club.membershipFee === 0 ? "Free" : `$${club.membershipFee}`}</p>
+          <Link className="btn btn-sm btn-primary mt-4" to={`/clubs/${club._id}`}>
+                View Club
+              </Link>
         </div>
       ))}
     </div>

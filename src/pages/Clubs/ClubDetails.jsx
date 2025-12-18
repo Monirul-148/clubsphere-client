@@ -1,36 +1,37 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ClubDetails = () => {
-  const { id } = useParams(); // URL থেকে id
-  const [club, setClub] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!id) return;
+  const handleJoin = () => {
+    console.log("Joining club ID:", id);
 
-    axios
-      .get(`http://localhost:5000/clubs/${id}`)
-      .then((res) => {
-        setClub(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Axios error 👉", err);
-        setLoading(false);
-      });
-  }, [id]);
-
-  if (loading) return <p>Loading...</p>;
-  if (!club) return <p>Club not found</p>;
+ 
+    navigate(`/dashboard/member/join-club/${id}`);
+  };
 
   return (
-    <div>
-      <h2>{club.clubName}</h2>
-      <p>{club.description}</p>
-      <p>Status: {club.status}</p>
-      <img src={club.bannerImage} alt={club.clubName} width="400" />
+    <div className="max-w-xl mx-auto p-5">
+      <h1 className="text-2xl font-bold mb-4">Club Details - ID: {id}</h1>
+      <p className="mb-4">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+        ullamcorper ultricies nisi. Nam eget dui.
+      </p>
+      
+      <div className="flex gap-4">
+        <button onClick={handleJoin} className="btn text-white bg-gradient-to-r from-purple-800 to-pink-500">
+          Join This Club
+        </button>
+
+        <button 
+          onClick={() => navigate("/clubs")} 
+          className="btn text-white bg-gradient-to-r from-purple-800 to-pink-500"
+        >
+          Back to Clubs
+        </button>
+      </div>
     </div>
   );
 };
