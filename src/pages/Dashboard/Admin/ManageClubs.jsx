@@ -1,4 +1,4 @@
-// src/pages/Dashboard/Admin/ManageClubs.jsx
+
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 
@@ -10,9 +10,12 @@ const ManageClubs = () => {
     const fetchClubs = async () => {
       try {
         const token = await getToken();
-        const res = await fetch("http://localhost:5000/clubs", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const res = await fetch(
+          "https://clubsphere-server-nine.vercel.app/clubs",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const data = await res.json();
         setClubs(data);
       } catch (err) {

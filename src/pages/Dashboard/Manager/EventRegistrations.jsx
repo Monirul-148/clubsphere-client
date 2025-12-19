@@ -1,12 +1,12 @@
-// src/pages/Dashboard/Manager/EventRegistrations.jsx
+
 import React, { useState, useEffect } from "react";
 
 const EventRegistrations = () => {
-  // Mock registrations data
+  
   const [registrations, setRegistrations] = useState([]);
 
   useEffect(() => {
-    // Simulate fetching data from API
+   
     const fetchData = async () => {
       const data = [
         {

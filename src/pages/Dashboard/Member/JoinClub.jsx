@@ -3,7 +3,7 @@ import {useAuth} from "../../../hooks/useAuth";
 const JoinClub = () => {
   const auth = useAuth();
 
-  // safety check
+
   if (!auth) {
     return <p>Auth not ready</p>;
   }

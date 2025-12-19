@@ -2,6 +2,7 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 
+
 const DashboardLayout = () => {
   return (
     <div className="flex min-h-screen">

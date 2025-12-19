@@ -6,7 +6,7 @@ const Events = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    axios.get("/events")
+    axios.get("https://clubsphere-server-nine.vercel.app/events")
       .then(res => setEvents(res.data))
       .catch(err => console.error(err));
   }, []);

@@ -1,4 +1,4 @@
-// src/pages/Dashboard/Admin/Payments.jsx
+
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 
@@ -10,9 +10,12 @@ const Payments = () => {
     const fetchPayments = async () => {
       try {
         const token = await getToken();
-        const res = await fetch("http://localhost:5000/payments", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const res = await fetch(
+          "https://clubsphere-server-nine.vercel.app/payments",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const data = await res.json();
         setPayments(data);
       } catch (err) {
@@ -36,7 +39,9 @@ const Payments = () => {
         <tbody>
           {payments.map((p) => (
             <tr key={p._id}>
-              <td className="border px-4 py-2">{p.userId?.name || "Unknown"}</td>
+              <td className="border px-4 py-2">
+                {p.userId?.name || "Unknown"}
+              </td>
               <td className="border px-4 py-2">{p.amount}</td>
               <td className="border px-4 py-2">{p.status}</td>
             </tr>

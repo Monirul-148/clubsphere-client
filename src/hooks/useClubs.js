@@ -5,7 +5,7 @@ export const useClubs = () => {
   return useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/clubs/approved");
+      const res = await axiosSecure.get("https://clubsphere-server-nine.vercel.app/clubs/approved");
       return res.data;
     },
   });

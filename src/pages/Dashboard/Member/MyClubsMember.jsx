@@ -1,7 +1,7 @@
 import React from "react";
 
 const MyClubsMember = () => {
-  // Example: join করা clubs list
+  
   const myClubs = [
     { id: "1", name: "Photography Club" },
     { id: "3", name: "Book Club" },

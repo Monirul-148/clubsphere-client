@@ -1,6 +1,6 @@
-// src/pages/Dashboard/Manager/ManagerHome.jsx
+
 import React, { useEffect, useState } from "react";
-import   { useAuth }   from "../../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 
 const ManagerHome = () => {
   const [stats, setStats] = useState({ totalClubs: 0, totalEvents: 0 });
@@ -10,9 +10,12 @@ const ManagerHome = () => {
     const fetchStats = async () => {
       try {
         const token = await getToken();
-        const res = await fetch("http://localhost:5000/manager/stats", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(
+          "https://clubsphere-server-nine.vercel.app/manager/stats",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const data = await res.json();
         setStats(data);
       } catch (err) {

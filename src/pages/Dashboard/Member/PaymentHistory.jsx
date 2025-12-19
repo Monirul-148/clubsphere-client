@@ -7,9 +7,12 @@ const PaymentHistory = () => {
   const [payments, setPayments] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/payments?email=${user.email}`)
-      .then(res => setPayments(res.data))
-      .catch(err => console.log(err));
+    axios
+      .get(
+        `https://clubsphere-server-nine.vercel.app/payments?email=${user.email}`
+      )
+      .then((res) => setPayments(res.data))
+      .catch((err) => console.log(err));
   }, [user.email]);
 
   return (
@@ -28,7 +31,7 @@ const PaymentHistory = () => {
             </tr>
           </thead>
           <tbody>
-            {payments.map(pay => (
+            {payments.map((pay) => (
               <tr key={pay._id}>
                 <td>{pay.clubName}</td>
                 <td>${pay.amount}</td>

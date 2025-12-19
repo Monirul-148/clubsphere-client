@@ -1,6 +1,5 @@
-
 import React, { useEffect, useState } from "react";
-import  { useAuth }  from "../../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 
 const MyClubs = () => {
   const [clubs, setClubs] = useState([]);
@@ -10,9 +9,12 @@ const MyClubs = () => {
     const fetchClubs = async () => {
       try {
         const token = await getToken();
-        const res = await fetch("http://localhost:5000/manager/my-clubs", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(
+          "https://clubsphere-server-nine.vercel.app/manager/my-clubs",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const data = await res.json();
         setClubs(data);
       } catch (err) {
@@ -30,9 +32,7 @@ const MyClubs = () => {
           <div key={club._id} className="p-4 border rounded-xl shadow">
             <h3 className="text-xl font-semibold">{club.name}</h3>
             <p className="text-gray-500">{club.description}</p>
-            <p className="mt-2 text-sm text-gray-600">
-              Status: {club.status}
-            </p>
+            <p className="mt-2 text-sm text-gray-600">Status: {club.status}</p>
           </div>
         ))}
         {clubs.length === 0 && <p>No clubs found.</p>}

@@ -1,7 +1,6 @@
-
 import React from "react";
 import { useForm } from "react-hook-form";
-import  useAuth  from "../../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 
 const CreateEvent = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -10,14 +9,17 @@ const CreateEvent = () => {
   const onSubmit = async (data) => {
     try {
       const token = await getToken();
-      const res = await fetch("http://localhost:5000/events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ ...data, managerEmail: user.email }),
-      });
+      const res = await fetch(
+        "https://clubsphere-server-nine.vercel.app/events",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ ...data, managerEmail: user.email }),
+        }
+      );
       const result = await res.json();
       console.log(result);
       alert("Event created successfully!");
