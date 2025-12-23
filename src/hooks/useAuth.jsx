@@ -1,7 +1,14 @@
-
-import { createContext, useContext, useState, useEffect } from "react";
-import { auth } from "../firebase/firebase.init"; 
-import { onAuthStateChanged } from "firebase/auth";
+import { useContext, createContext, useState, useEffect } from "react";
+import {
+  auth,
+  googleProvider
+} from "../firebase/firebase.init";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithPopup
+} from "firebase/auth";
 
 const AuthContext = createContext();
 
@@ -9,27 +16,48 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
     });
     return () => unsubscribe();
   }, []);
 
-  const getToken = async () => {
-    if (!user) return null;
-    return await user.getIdToken();
+  // Email/Password login
+  const signInUser = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  // Google login
+  const loginWithGoogle = () => {
+    return signInWithPopup(auth, googleProvider);
+  };
+
+  // Forgot password
+  const forgotPassword = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
+  // Email/Password register
+  const registerUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
   return (
-    <AuthContext.Provider value={{ user, getToken }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        signInUser,
+        registerUser,
+        loginWithGoogle,
+        forgotPassword
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Named export
+// Custom hook
 export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth must be used within AuthProvider");
-  return context;
+  return useContext(AuthContext);
 };
